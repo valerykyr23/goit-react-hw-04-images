@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import propTypes from 'prop-types';
 
@@ -11,39 +11,61 @@ import {
 
 const modalRoot = document.querySelector('#modal-root');
 
-export class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.onEscPress);
-  }
+export const Modal = ({closeModal, src, alt}) => {
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onEscPress);
-  }
+// const  onEscPress = e => {
+//     if (e.code === 'Escape') {
+//       closeModal();
+//     }
+//   };
 
-  onEscPress = e => {
-    if (e.code === 'Escape') {
-      this.props.closeModal();
-    }
-  };
+  
+    
+    useEffect(() => {
+    const onEscPress = event => {
+      if (event.code === 'Escape') {
+        closeModal();
+      }
+    };
 
-  onkBackdropClick = e => {
+    window.addEventListener('keydown', onEscPress);
+
+    return () => {
+      window.removeEventListener('keydown', onEscPress);
+    };
+  }, [closeModal]);
+
+  
+  
+  
+  // componentDidMount() {
+  //   window.addEventListener('keydown', this.onEscPress);
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('keydown', this.onEscPress);
+  // }
+
+ 
+
+  const onkBackdropClick = e => {
     if (e.currentTarget === e.target) {
-      this.props.closeModal();
+      closeModal();
     }
   };
 
-  render() {
+ 
     return createPortal(
-      <ModalOverlay onClick={this.onkBackdropClick}>
+      <ModalOverlay onClick={onkBackdropClick}>
         <ModalWindow>
-          <ModalPic src={this.props.src} alt={this.props.alt} />
-          <ModalDescr>{this.props.alt}</ModalDescr>
+          <ModalPic src={src} alt={alt} />
+          <ModalDescr>{alt}</ModalDescr>
         </ModalWindow>
       </ModalOverlay>,
       modalRoot
     );
   }
-}
+
 
 Modal.propTypes = {
   src: propTypes.string.isRequired,

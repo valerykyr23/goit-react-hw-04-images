@@ -36,13 +36,23 @@ export const App = () => {
   // };
 
 
-  useEffect(() => { 
+  // useEffect(() => { 
 
+  //   setIsLoading(true);
+  //   fetchQuery(searchQuery, page);
+
+  // },
+  //   [searchQuery, page])
+  
+  
+  useEffect(() => {
+    
+    if (!searchQuery) {
+      return;
+    }
     setIsLoading(true);
     fetchQuery(searchQuery, page);
-
-  },
-    [searchQuery, page])
+  }, [searchQuery, page]);
   
   // componentDidUpdate(prevProps, prevState) {
   //   if (
@@ -54,13 +64,7 @@ export const App = () => {
   //   }
   // }
 
-  const onSubmit = FormData => {
-    const { query } = FormData;
-    // this.setState({ searchQuery: query, page: 1, picsArr: [] });
-    setSearchQuery(query);
-    setPage(1);
-    setPicsArr([]);
-  };
+  
 
 
 
@@ -119,6 +123,14 @@ export const App = () => {
     }
   };
 
+const onSubmit = FormData => {
+    const { query } = FormData;
+    // this.setState({ searchQuery: query, page: 1, picsArr: [] });
+    setSearchQuery(query);
+    setPicsArr([]);
+    setPage(1);
+    
+  };
 
   const toggleModal = (largeImageURL, imageTags) => {
     // this.setState(prevState => ({
@@ -127,7 +139,7 @@ export const App = () => {
     //   imageTags: imageTags,
     // }));
 
-    setShowModal(prevState => !prevState);
+    setShowModal(!showModal);
     setLargeImageURL(largeImageURL);
     setImageTags(imageTags);
   };
