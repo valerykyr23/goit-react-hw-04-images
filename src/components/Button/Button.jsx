@@ -20,17 +20,6 @@ export const Button = ({
       onClick={onClick}
     >
       {Icon && <Icon></Icon>}
-
-      {/* {onLoaderPlay && (
-        <Spinner
-          as="span"
-          variant="light"
-          size="sm"
-          role="status"
-          aria-hidden="true"
-          animation="border"
-        />
-      )} */}
       {text}
     </BtnElement>
   );

@@ -3,10 +3,12 @@ import { List } from './ImageGallery.styled';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
 export const ImageGallery = ({ pics, showModal }) => {
+
+  console.log(pics)
   return (
     <List>
       {pics.map(pic => {
-        // console.log(pic);
+        
         return (
           <ImageGalleryItem
             key={pic.id}
